@@ -223,11 +223,12 @@
         <p class="intro">Notre équipe est à votre disposition pour vous aider. Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.</p>
 
         <div class="success-message" id="successMessage">
-            ✅ Votre message a été envoyé avec succès ! Nous vous répondrons dans les 24-48h.
+            ✅ Votre message a été envoyé avec succès ! Nous vous répondrons dans les 24-48h.<br>
+            <small>Redirection vers l'accueil dans 3 secondes...</small>
         </div>
 
         <div class="error-message" id="errorMessage">
-            ❌ Une erreur est survenue. Veuillez réessayer.
+            Une erreur est survenue. Veuillez réessayer.
         </div>
 
         <form id="contactForm">
@@ -299,7 +300,7 @@
 
             // Validation
             if (!subject || !email || !message || message.length < 10) {
-                errorMessage.textContent = '❌ Veuillez remplir tous les champs correctement.';
+                errorMessage.textContent = 'Veuillez remplir tous les champs correctement.';
                 errorMessage.style.display = 'block';
                 return;
             }
@@ -345,12 +346,17 @@
                     
                     // Scroll vers le message de succès
                     successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Redirection vers l'accueil après 3 secondes
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 3000);
                 } else {
                     throw new Error(data.message || 'Erreur inconnue');
                 }
             } catch (error) {
                 console.error('Erreur:', error);
-                errorMessage.textContent = '❌ Une erreur est survenue. Veuillez réessayer ou nous contacter à support@objetperdu.org';
+                errorMessage.textContent = 'Une erreur est survenue. Veuillez réessayer ou nous contacter à support@objetperdu.org';
                 errorMessage.style.display = 'block';
             } finally {
                 // Masquer le loader
